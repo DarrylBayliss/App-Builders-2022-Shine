@@ -6,10 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.* // ktlint-disable no-wildcard-imports
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
@@ -17,6 +14,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -67,32 +65,62 @@ fun WeatherCard(weather: String) {
             .padding(top = 10.dp)
             .border(BorderStroke(width = 0.1.dp, color = Color.Gray))
     ) {
-        Column {
-            Row {
+        Column(
+            modifier = Modifier
+                .padding(top = 10.0.dp)
+                .padding(horizontal = 6.0.dp),
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_weather_sun),
                     contentDescription = "Weather Icon"
                 )
-                Text(weather)
+                Text(
+                    text = weather
+                )
 
                 Image(
                     painter = painterResource(id = R.drawable.ic_sunrise),
                     contentDescription = "Sunrise"
                 )
-                Text("08:23")
+                Text(
+                    text = "08:23"
+                )
 
                 Image(
                     painter = painterResource(id = R.drawable.ic_sunset),
                     contentDescription = "Sunset"
                 )
-                Text("19:34")
+                Text(
+                    text = "19:34"
+                )
             }
 
-            Row {
-                Text("14 degrees")
-                Column {
-                    Text("H:16")
-                    Text("L:12")
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Box(
+                    modifier = Modifier.size(width = 100.dp, height = 100.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("14°c")
+                }
+
+                Box(
+                    modifier = Modifier.size(width = 100.dp, height = 100.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column {
+                        Text("H:16°c")
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text("L:12°c")
+                    }
                 }
             }
         }
