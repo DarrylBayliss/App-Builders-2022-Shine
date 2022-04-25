@@ -1,4 +1,4 @@
-package com.darrylbayliss.sunshine.main
+package com.darrylbayliss.sunshine.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
