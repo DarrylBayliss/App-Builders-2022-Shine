@@ -4,17 +4,22 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.darrylbayliss.sunshine.domain.GetLocationsUseCase
+import com.darrylbayliss.sunshine.domain.GetSelectedLocationsUseCase
 import com.darrylbayliss.sunshine.domain.SelectedLocation
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(val getLocationsUseCase: GetLocationsUseCase) : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(val getSelectedLocationsUseCase: GetSelectedLocationsUseCase) :
+    ViewModel() {
 
     val weather: MutableState<List<SelectedLocation>> = mutableStateOf(listOf())
 
-    fun getSelectedLocations() {
+    init {
         viewModelScope.launch {
-
+            weather.value = getSelectedLocationsUseCase().single()
         }
     }
 }

@@ -1,22 +1,11 @@
 package com.darrylbayliss.sunshine.domain
 
-import com.darrylbayliss.sunshine.data.LocationDTO
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class GetLocationsUseCase(private val locationRepository: LocationRepository) {
+class GetLocationsUseCase @Inject constructor(private val locationRepository: LocationRepository) {
 
-    suspend operator fun invoke() {
-        return withContext(Dispatchers.IO) {
-            locationRepository
-                .getLocations()
-                .toLocations()
-        }
-    }
-
-    private fun List<LocationDTO>.toLocations() {
-        map { locationDTO ->
-            Location(locationDTO.name)
-        }
+    suspend operator fun invoke(): List<Location> {
+        return locationRepository
+            .getLocations()
     }
 }

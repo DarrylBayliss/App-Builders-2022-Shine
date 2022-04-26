@@ -20,9 +20,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.darrylbayliss.sunshine.R
+import com.darrylbayliss.sunshine.domain.SelectedLocation
 import com.darrylbayliss.sunshine.ui.theme.SunshineTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +42,7 @@ class MainActivity : ComponentActivity() {
 fun App() {
     Scaffold(
         topBar = { TopBar() },
-        content = { WeatherList() }
+        content = { MainScreen() }
     )
 }
 
@@ -48,16 +52,16 @@ fun TopBar() {
 }
 
 @Composable
-fun WeatherList() {
+fun MainScreen(mainViewModel: MainViewModel = viewModel()) {
     LazyColumn {
-        items(listOf("Ascona", "London", "New York")) { weather ->
+        items(mainViewModel.weather.value) { weather ->
             WeatherCard(weather)
         }
     }
 }
 
 @Composable
-fun WeatherCard(weather: String) {
+fun WeatherCard(weather: SelectedLocation) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -81,7 +85,7 @@ fun WeatherCard(weather: String) {
                     contentDescription = "Weather Icon"
                 )
                 Text(
-                    text = weather
+                    text = weather.name
                 )
 
                 Image(

@@ -4,6 +4,6 @@ import retrofit2.http.GET
 
 interface LocationService {
 
-    @GET("")
+    @GET("sunshine/weather.json")
     suspend fun getLocations(): List<LocationDTO>
 }

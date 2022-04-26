@@ -4,14 +4,18 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.darrylbayliss.sunshine.dataStore
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class SelectedLocationStore(private val context: Context) {
+class SelectedLocationStore @Inject constructor(@ApplicationContext private val context: Context) {
 
-    fun getSelectedLocationIds(): Flow<Set<String>> {
+    fun selectedLocationIds(): Flow<Set<String>> {
         return context.dataStore.data.map { ids ->
-            ids.asMap().values as Set<String>
+            ids.asMap().values.map { locationId ->
+                locationId.toString()
+            }.toSet()
         }
     }
 
