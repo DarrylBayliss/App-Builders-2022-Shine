@@ -21,10 +21,16 @@ class SelectedLocationRepository @Inject constructor(
                 selectedLocationStore.selectedLocationIds(),
                 flow { emit(locationService.getLocations()) }
             ) { selectedLocationIds, locations ->
-                locations.toSelectedLocations().filter { selectedLocation ->
-                    selectedLocationIds.contains(selectedLocation.id)
-                }
+                locations.filter { locationDTO ->
+                    selectedLocationIds.contains(locationDTO.id)
+                }.toSelectedLocations()
             }
+        }
+    }
+
+    suspend fun saveLocation(location: Location) {
+        return withContext(Dispatchers.IO) {
+            selectedLocationStore.setSelectedLocationId(location.id, location.name)
         }
     }
 
@@ -32,7 +38,12 @@ class SelectedLocationRepository @Inject constructor(
         return map { locationDTO ->
             SelectedLocation(
                 id = locationDTO.id,
-                name = locationDTO.name
+                name = locationDTO.name,
+                temperature = locationDTO.temperature,
+                highestTemperature = locationDTO.highestTemperature,
+                lowestTemperature = locationDTO.lowestTemperature,
+                sunrise = locationDTO.sunrise,
+                sunset = locationDTO.sunset
             )
         }
     }

@@ -18,7 +18,15 @@ class LocationRepository @Inject constructor(private val locationService: Locati
 
     private fun List<LocationDTO>.toLocations(): List<Location> {
         return map { locationDTO ->
-            Location(locationDTO.name)
+            Location(
+                id = locationDTO.id,
+                name = locationDTO.name,
+                temperature = locationDTO.temperature,
+                highestTemperature = locationDTO.highestTemperature,
+                lowestTemperature = locationDTO.lowestTemperature,
+                sunrise = locationDTO.sunrise,
+                sunset = locationDTO.sunset
+            )
         }
     }
 }

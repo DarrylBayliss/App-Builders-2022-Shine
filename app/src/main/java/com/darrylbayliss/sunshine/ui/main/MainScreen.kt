@@ -1,8 +1,5 @@
 package com.darrylbayliss.sunshine.ui.main
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -10,51 +7,24 @@ import androidx.compose.foundation.layout.* // ktlint-disable no-wildcard-import
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.darrylbayliss.sunshine.R
 import com.darrylbayliss.sunshine.domain.SelectedLocation
-import com.darrylbayliss.sunshine.ui.theme.SunshineTheme
-import dagger.hilt.android.AndroidEntryPoint
-
-@AndroidEntryPoint
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            SunshineTheme {
-                App()
-            }
-        }
-    }
-}
 
 @Composable
-fun App() {
-    Scaffold(
-        topBar = { TopBar() },
-        content = { MainScreen() }
-    )
-}
-
-@Composable
-fun TopBar() {
-    TopAppBar(title = { Text("Shine") })
-}
-
-@Composable
-fun MainScreen(mainViewModel: MainViewModel = viewModel()) {
+fun MainScreen(
+    viewModel: MainViewModel,
+    onClickWeatherDetail: () -> Unit
+) {
     LazyColumn {
-        items(mainViewModel.weather.value) { weather ->
+        items(viewModel.weather.value) { weather ->
             WeatherCard(weather)
         }
     }
@@ -128,13 +98,5 @@ fun WeatherCard(weather: SelectedLocation) {
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun WeatherListPreview() {
-    SunshineTheme {
-        App()
     }
 }
