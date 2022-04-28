@@ -1,10 +1,10 @@
-package com.darrylbayliss.sunshine.ui.cities
+package com.darrylbayliss.sunshine.ui.locations
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.darrylbayliss.sunshine.domain.GetLocationNamesUseCase
+import com.darrylbayliss.sunshine.domain.GetLocationsUseCase
 import com.darrylbayliss.sunshine.domain.Location
 import com.darrylbayliss.sunshine.domain.SaveLocationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,16 +13,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LocationsViewModel @Inject constructor(
-    val getLocationNamesUseCase: GetLocationNamesUseCase,
+    val getLocationUseCase: GetLocationsUseCase,
     val saveLocationUseCase: SaveLocationUseCase
 ) :
     ViewModel() {
 
-    val locations: MutableState<List<String>> = mutableStateOf(listOf())
+    val locations: MutableState<List<Location>> = mutableStateOf(listOf())
 
     init {
         viewModelScope.launch {
-            locations.value = getLocationNamesUseCase()
+            locations.value = getLocationUseCase()
         }
     }
 

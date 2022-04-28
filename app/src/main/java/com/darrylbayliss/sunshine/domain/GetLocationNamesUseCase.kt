@@ -1,6 +1,8 @@
 package com.darrylbayliss.sunshine.domain
 
-class GetLocationNamesUseCase {
+import javax.inject.Inject
+
+class GetLocationNamesUseCase @Inject constructor() {
 
     operator fun invoke(): List<String> {
         return listOf(

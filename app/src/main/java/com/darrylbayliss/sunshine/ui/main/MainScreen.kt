@@ -3,6 +3,7 @@ package com.darrylbayliss.sunshine.ui.main
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.* // ktlint-disable no-wildcard-imports
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,23 +22,29 @@ import com.darrylbayliss.sunshine.domain.SelectedLocation
 @Composable
 fun MainScreen(
     viewModel: MainViewModel,
-    onClickWeatherDetail: () -> Unit
+    onWeatherCardClicked: () -> Unit
 ) {
     LazyColumn {
         items(viewModel.weather.value) { weather ->
-            WeatherCard(weather)
+            WeatherCard(weather) {
+                onWeatherCardClicked()
+            }
         }
     }
 }
 
 @Composable
-fun WeatherCard(weather: SelectedLocation) {
+fun WeatherCard(
+    weather: SelectedLocation,
+    onWeatherCardClicked: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 10.dp)
             .padding(top = 10.dp)
             .border(BorderStroke(width = 0.1.dp, color = Color.Gray))
+            .clickable { onWeatherCardClicked() }
     ) {
         Column(
             modifier = Modifier

@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.darrylbayliss.sunshine.domain.GetSelectedLocationsUseCase
 import com.darrylbayliss.sunshine.domain.SelectedLocation
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.single
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class MainViewModel @Inject constructor(val getSelectedLocationsUseCase: GetSele
 
     init {
         viewModelScope.launch {
-            weather.value = getSelectedLocationsUseCase().single()
+            weather.value = getSelectedLocationsUseCase().first()
         }
     }
 }

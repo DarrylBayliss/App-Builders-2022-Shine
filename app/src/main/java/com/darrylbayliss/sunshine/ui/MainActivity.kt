@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.darrylbayliss.sunshine.ui.navigation.Navigation
+import com.darrylbayliss.sunshine.ui.navigation.navigateToLocationsScreen
 import com.darrylbayliss.sunshine.ui.theme.SunshineTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,7 +31,11 @@ fun App() {
     SunshineTheme {
         val navController = rememberNavController()
         Scaffold(
-            topBar = { TopBar() },
+            topBar = {
+                TopBar {
+                    navigateToLocationsScreen(navController)
+                }
+            },
             content = { innerPadding ->
                 Navigation(navController = navController, modifier = Modifier.padding(innerPadding))
             }
@@ -39,13 +44,20 @@ fun App() {
 }
 
 @Composable
-fun TopBar() {
+fun TopBar(
+    onAddLocationButtonClicked: () -> Unit
+) {
     TopAppBar(
         title = { Text("Shine") },
         actions = {
             IconButton(
-                content = { Icons.Filled.Add },
-                onClick = { /*TODO*/ }
+                content = {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add Location"
+                    )
+                },
+                onClick = { onAddLocationButtonClicked() }
             )
         }
     )
