@@ -6,6 +6,7 @@ data class LocationDTO(
     val temperature: Float,
     val highestTemperature: Float,
     val lowestTemperature: Float,
+    val percipitationChance: Float,
     val sunrise: String,
     val sunset: String
 )

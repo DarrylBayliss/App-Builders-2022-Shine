@@ -4,8 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.darrylbayliss.sunshine.domain.SelectedLocation
 import com.darrylbayliss.sunshine.ui.SunshineScreen
 import com.darrylbayliss.sunshine.ui.detail.DetailScreen
 import com.darrylbayliss.sunshine.ui.locations.LocationsScreen
@@ -24,7 +27,9 @@ fun Navigation(
         composable(SunshineScreen.Main.toString()) {
             MainScreen(
                 viewModel = hiltViewModel(),
-                onWeatherCardClicked = { navigateToDetailScreen(navController) }
+                onWeatherCardClicked = { selectedLocation ->
+                    navigateToDetailScreen(navController, selectedLocation)
+                }
             )
         }
 
@@ -37,8 +42,12 @@ fun Navigation(
             )
         }
 
-        composable(SunshineScreen.Detail.toString()) {
-            DetailScreen()
+        composable(
+            route = SunshineScreen.Detail.toString(),
+            arguments = listOf(navArgument("selectedLocationId") { type = NavType.StringType })
+        ) { entry ->
+            val selectedLocationId = entry.arguments?.getString("selectedLocationId")
+            DetailScreen(selectedLocationId)
         }
     }
 }
@@ -51,6 +60,6 @@ fun navigateToLocationsScreen(navController: NavHostController) {
     navController.navigate(SunshineScreen.Locations.toString())
 }
 
-fun navigateToDetailScreen(navController: NavHostController) {
+fun navigateToDetailScreen(navController: NavHostController, selectedLocation: SelectedLocation) {
     navController.navigate(SunshineScreen.Detail.toString())
 }

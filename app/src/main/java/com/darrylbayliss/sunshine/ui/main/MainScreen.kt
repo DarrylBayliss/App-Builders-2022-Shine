@@ -14,20 +14,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.darrylbayliss.sunshine.R
 import com.darrylbayliss.sunshine.domain.SelectedLocation
+import com.darrylbayliss.sunshine.ui.locations.LocationsList
+import com.darrylbayliss.sunshine.ui.theme.SunshineTheme
 
 @Composable
-fun MainScreen(
-    viewModel: MainViewModel,
-    onWeatherCardClicked: () -> Unit
+fun MainScreen(viewModel: MainViewModel, onWeatherCardClicked: (SelectedLocation) -> Unit) {
+    SelectedLocations(viewModel.weather.value) { selectedLocation ->
+        onWeatherCardClicked(selectedLocation)
+    }
+}
+
+@Composable
+fun SelectedLocations(
+    selectedLocations: List<SelectedLocation>,
+    onWeatherCardClicked: (SelectedLocation) -> Unit
 ) {
     LazyColumn {
-        items(viewModel.weather.value) { weather ->
-            WeatherCard(weather) {
-                onWeatherCardClicked()
+        items(items = selectedLocations) { selectedLocation ->
+            WeatherCard(selectedLocation) {
+                onWeatherCardClicked(selectedLocation)
             }
         }
     }
@@ -105,5 +115,13 @@ fun WeatherCard(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LocationsListPreview() {
+    SunshineTheme {
+        LocationsList(locations = listOf()) {}
     }
 }

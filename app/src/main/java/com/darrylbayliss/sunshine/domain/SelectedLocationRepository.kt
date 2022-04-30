@@ -42,6 +42,7 @@ class SelectedLocationRepository @Inject constructor(
                 temperature = locationDTO.temperature,
                 highestTemperature = locationDTO.highestTemperature,
                 lowestTemperature = locationDTO.lowestTemperature,
+                percipitationChance = locationDTO.percipitationChance,
                 sunrise = locationDTO.sunrise,
                 sunset = locationDTO.sunset
             )
