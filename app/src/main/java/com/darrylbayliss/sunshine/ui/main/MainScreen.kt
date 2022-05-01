@@ -36,8 +36,8 @@ fun SelectedLocations(
 ) {
     LazyColumn {
         items(items = selectedLocations) { selectedLocation ->
-            WeatherCard(selectedLocation) {
-                onWeatherCardClicked(selectedLocation)
+            WeatherCard(selectedLocation) { clickedLocation ->
+                onWeatherCardClicked(clickedLocation)
             }
         }
     }
@@ -46,7 +46,7 @@ fun SelectedLocations(
 @Composable
 fun WeatherCard(
     weather: SelectedLocation,
-    onWeatherCardClicked: () -> Unit
+    onWeatherCardClicked: (SelectedLocation) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -54,7 +54,7 @@ fun WeatherCard(
             .padding(horizontal = 10.dp)
             .padding(top = 10.dp)
             .border(BorderStroke(width = 0.1.dp, color = Color.Gray))
-            .clickable { onWeatherCardClicked() }
+            .clickable { onWeatherCardClicked(weather) }
     ) {
         Column(
             modifier = Modifier

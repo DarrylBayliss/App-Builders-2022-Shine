@@ -1,7 +1,9 @@
 package com.darrylbayliss.sunshine.domain
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class SelectedLocation(
     val id: String,
     val name: String,
@@ -11,4 +13,4 @@ data class SelectedLocation(
     val percipitationChance: Float,
     val sunrise: String,
     val sunset: String
-) : Serializable
+) : Parcelable

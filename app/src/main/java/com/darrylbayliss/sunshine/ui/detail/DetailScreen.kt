@@ -17,64 +17,85 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.darrylbayliss.sunshine.R
+import com.darrylbayliss.sunshine.domain.SelectedLocation
 import com.darrylbayliss.sunshine.ui.theme.SunshineTheme
 
 @Composable
-fun DetailScreen(selectedLocationId: String?) {
+fun DetailScreen(
+    viewModel: DetailViewModel,
+    selectedLocationId: String
+) {
     SunshineTheme {
-        WeatherDetail()
+        WeatherDetail(selectedLocation = viewModel.detailViewState.selectedLocation)
     }
+
+    viewModel.getSelectedLocation(selectedLocationId)
 }
 
 @Composable
-fun WeatherDetail() {
+fun WeatherDetail(selectedLocation: SelectedLocation?) {
 
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = 10.dp)
-                .size(200.dp, 200.dp),
-            imageVector = Icons.Filled.ArrowDropDown,
-            contentDescription = "Weather Detail Symbol"
-        )
-
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            CurrentTemperatureBox()
-            HighLowTemperatureBox()
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 20.0.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
+    if (selectedLocation == null) {
+    } else {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SunsetSunriseTemperatureBox()
-            PrecipitationChanceBox()
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(all = 10.dp)
+                    .size(200.dp, 200.dp),
+                imageVector = Icons.Filled.ArrowDropDown,
+                contentDescription = "Weather Detail Symbol"
+            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                CurrentTemperatureBox(selectedLocation.temperature)
+                HighLowTemperatureBox(
+                    selectedLocation.lowestTemperature,
+                    selectedLocation.highestTemperature
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.0.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                SunsetSunriseTemperatureBox(
+                    sunriseTime = selectedLocation.sunrise,
+                    sunsetTime = selectedLocation.sunset
+                )
+                PrecipitationChanceBox(percipitationChance = selectedLocation.percipitationChance)
+            }
         }
     }
 }
 
 @OptIn(ExperimentalUnitApi::class)
 @Composable
-fun CurrentTemperatureBox() {
+fun CurrentTemperatureBox(temperature: Float) {
     Box(
         modifier = Modifier
             .size(width = 100.dp, height = 100.dp)
             .border(BorderStroke(width = 2.0.dp, color = Color.Black)),
         contentAlignment = Alignment.Center
     ) {
-        Text(fontSize = TextUnit(value = 48.0F, TextUnitType.Sp), text = "14")
+        Text(fontSize = TextUnit(value = 24.0F, TextUnitType.Sp), text = "$temperature°c")
     }
 }
 
 @OptIn(ExperimentalUnitApi::class)
 @Composable
-fun HighLowTemperatureBox() {
+fun HighLowTemperatureBox(
+    highestTemperature: Float,
+    lowestTemperature: Float
+) {
     Box(
         modifier = Modifier
             .size(width = 100.dp, height = 100.dp)
@@ -82,15 +103,24 @@ fun HighLowTemperatureBox() {
         contentAlignment = Alignment.Center
     ) {
         Column {
-            Text(text = "H:16°c", fontSize = TextUnit(value = 24.0F, TextUnitType.Sp))
+            Text(
+                text = "H: $highestTemperature°c",
+                fontSize = TextUnit(value = 20.0F, TextUnitType.Sp)
+            )
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "L:12°c", fontSize = TextUnit(value = 24.0F, TextUnitType.Sp))
+            Text(
+                text = "L: $lowestTemperature°c",
+                fontSize = TextUnit(value = 20.0F, TextUnitType.Sp)
+            )
         }
     }
 }
 
 @Composable
-fun SunsetSunriseTemperatureBox() {
+fun SunsetSunriseTemperatureBox(
+    sunriseTime: String,
+    sunsetTime: String
+) {
     Box(
         modifier = Modifier
             .size(width = 100.dp, height = 100.dp)
@@ -108,7 +138,7 @@ fun SunsetSunriseTemperatureBox() {
                     contentDescription = "Sunrise"
                 )
                 Text(
-                    text = "08:23"
+                    text = sunriseTime
                 )
             }
 
@@ -121,7 +151,7 @@ fun SunsetSunriseTemperatureBox() {
                     contentDescription = "Sunset"
                 )
                 Text(
-                    text = "19:34"
+                    text = sunsetTime
                 )
             }
         }
@@ -129,7 +159,7 @@ fun SunsetSunriseTemperatureBox() {
 }
 
 @Composable
-fun PrecipitationChanceBox() {
+fun PrecipitationChanceBox(percipitationChance: Float) {
     Box(
         modifier = Modifier
             .size(width = 100.dp, height = 100.dp)
@@ -141,11 +171,11 @@ fun PrecipitationChanceBox() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_sunset),
+                painter = painterResource(id = R.drawable.ic_weather_rain),
                 contentDescription = "Sunset"
             )
             Text(
-                text = "19:34"
+                text = "$percipitationChance%"
             )
         }
     }

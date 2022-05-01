@@ -8,7 +8,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.darrylbayliss.sunshine.domain.SelectedLocation
 import com.darrylbayliss.sunshine.ui.SunshineScreen
 import com.darrylbayliss.sunshine.ui.detail.DetailScreen
 import com.darrylbayliss.sunshine.ui.locations.LocationsScreen
@@ -21,19 +20,19 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = SunshineScreen.Main.toString(),
+        startDestination = SunshineScreen.Main().name,
         modifier = modifier
     ) {
-        composable(SunshineScreen.Main.toString()) {
+        composable(SunshineScreen.Main().name) {
             MainScreen(
                 viewModel = hiltViewModel(),
                 onWeatherCardClicked = { selectedLocation ->
-                    navigateToDetailScreen(navController, selectedLocation)
+                    navigateToDetailScreen(navController, selectedLocation.id)
                 }
             )
         }
 
-        composable(SunshineScreen.Locations.toString()) {
+        composable(SunshineScreen.Locations().name) {
             LocationsScreen(
                 viewModel = hiltViewModel(),
                 onLocationClicked = {
@@ -43,23 +42,31 @@ fun Navigation(
         }
 
         composable(
-            route = SunshineScreen.Detail.toString(),
+            route = "${SunshineScreen.Detail().name}/{selectedLocationId}}",
             arguments = listOf(navArgument("selectedLocationId") { type = NavType.StringType })
         ) { entry ->
             val selectedLocationId = entry.arguments?.getString("selectedLocationId")
-            DetailScreen(selectedLocationId)
+
+            if (selectedLocationId != null) {
+                DetailScreen(
+                    viewModel = hiltViewModel(),
+                    selectedLocationId = selectedLocationId
+                )
+            } else {
+                throw IllegalStateException("We should not get an null selectedLocationId")
+            }
         }
     }
 }
 
 fun navigateToMainScreen(navController: NavHostController) {
-    navController.navigate(SunshineScreen.Main.toString())
+    navController.navigate(SunshineScreen.Main().name)
 }
 
 fun navigateToLocationsScreen(navController: NavHostController) {
-    navController.navigate(SunshineScreen.Locations.toString())
+    navController.navigate(SunshineScreen.Locations().name)
 }
 
-fun navigateToDetailScreen(navController: NavHostController, selectedLocation: SelectedLocation) {
-    navController.navigate(SunshineScreen.Detail.toString())
+fun navigateToDetailScreen(navController: NavHostController, id: String) {
+    navController.navigate("${SunshineScreen.Detail().name}/$id}")
 }

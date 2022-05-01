@@ -34,6 +34,27 @@ class SelectedLocationRepository @Inject constructor(
         }
     }
 
+    suspend fun getSelectedLocation(id: String): SelectedLocation {
+        return withContext(Dispatchers.IO) {
+            locationService.getLocations().first { locationDTO ->
+                locationDTO.id == id
+            }.toSelectedLocation()
+        }
+    }
+
+    private fun LocationDTO.toSelectedLocation(): SelectedLocation {
+        return SelectedLocation(
+            id = id,
+            name = name,
+            temperature = temperature,
+            highestTemperature = highestTemperature,
+            lowestTemperature = lowestTemperature,
+            percipitationChance = percipitationChance,
+            sunrise = sunrise,
+            sunset = sunset
+        )
+    }
+
     private fun List<LocationDTO>.toSelectedLocations(): List<SelectedLocation> {
         return map { locationDTO ->
             SelectedLocation(
