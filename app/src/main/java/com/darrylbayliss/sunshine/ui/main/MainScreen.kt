@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.darrylbayliss.sunshine.R
 import com.darrylbayliss.sunshine.domain.SelectedLocation
 import com.darrylbayliss.sunshine.ui.locations.LocationsList
@@ -34,12 +33,35 @@ fun SelectedLocations(
     selectedLocations: List<SelectedLocation>,
     onWeatherCardClicked: (SelectedLocation) -> Unit
 ) {
-    LazyColumn {
-        items(items = selectedLocations) { selectedLocation ->
-            WeatherCard(selectedLocation) { clickedLocation ->
-                onWeatherCardClicked(clickedLocation)
+
+    if (selectedLocations.isNotEmpty()) {
+        LazyColumn {
+            items(items = selectedLocations) { selectedLocation ->
+                WeatherCard(selectedLocation) { clickedLocation ->
+                    onWeatherCardClicked(clickedLocation)
+                }
             }
         }
+    } else {
+        EmptyList()
+    }
+}
+
+@Composable
+fun EmptyList() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            modifier = Modifier.fillMaxSize(0.5f),
+            painter = painterResource(id = R.drawable.ic_weather_sun),
+            contentDescription = "No locations selected"
+        )
+        Text(
+            text = "Add a location to see the weather here"
+        )
     }
 }
 
@@ -80,7 +102,7 @@ fun WeatherCard(
                     contentDescription = "Sunrise"
                 )
                 Text(
-                    text = "08:23"
+                    text = weather.sunrise
                 )
 
                 Image(
@@ -88,7 +110,7 @@ fun WeatherCard(
                     contentDescription = "Sunset"
                 )
                 Text(
-                    text = "19:34"
+                    text = weather.sunset
                 )
             }
 
@@ -100,7 +122,7 @@ fun WeatherCard(
                     modifier = Modifier.size(width = 100.dp, height = 100.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("14°c")
+                    Text("${weather.temperature}°c")
                 }
 
                 Box(
@@ -108,9 +130,9 @@ fun WeatherCard(
                     contentAlignment = Alignment.Center
                 ) {
                     Column {
-                        Text("H:16°c")
+                        Text("H:${weather.highestTemperature}°c")
                         Spacer(modifier = Modifier.height(10.dp))
-                        Text("L:12°c")
+                        Text("L:${weather.lowestTemperature}°c")
                     }
                 }
             }

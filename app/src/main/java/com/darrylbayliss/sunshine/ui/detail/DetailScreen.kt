@@ -5,8 +5,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.* // ktlint-disable no-wildcard-imports
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,6 +34,7 @@ fun DetailScreen(
 fun WeatherDetail(selectedLocation: SelectedLocation?) {
 
     if (selectedLocation == null) {
+        FailureMessage()
     } else {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -46,7 +45,11 @@ fun WeatherDetail(selectedLocation: SelectedLocation?) {
                     .fillMaxWidth()
                     .padding(all = 10.dp)
                     .size(200.dp, 200.dp),
-                imageVector = Icons.Filled.ArrowDropDown,
+                painter = if (selectedLocation.temperature >= 15.0) {
+                    painterResource(id = R.drawable.ic_weather_sun)
+                } else {
+                    painterResource(id = R.drawable.ic_weather_cold)
+                },
                 contentDescription = "Weather Detail Symbol"
             )
 
@@ -74,6 +77,25 @@ fun WeatherDetail(selectedLocation: SelectedLocation?) {
                 PrecipitationChanceBox(percipitationChance = selectedLocation.percipitationChance)
             }
         }
+    }
+}
+
+@Composable
+fun FailureMessage() {
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            modifier = Modifier.fillMaxSize(0.5f),
+            painter = painterResource(id = R.drawable.ic_weather_rain),
+            contentDescription = "No locations selected"
+        )
+        Text(
+            text = "Oops. We couldn't load the weather for this login."
+        )
     }
 }
 
@@ -138,6 +160,7 @@ fun SunsetSunriseTemperatureBox(
                     contentDescription = "Sunrise"
                 )
                 Text(
+                    modifier = Modifier.padding(start = 4.dp),
                     text = sunriseTime
                 )
             }
@@ -151,6 +174,7 @@ fun SunsetSunriseTemperatureBox(
                     contentDescription = "Sunset"
                 )
                 Text(
+                    modifier = Modifier.padding(start = 4.dp),
                     text = sunsetTime
                 )
             }
@@ -175,6 +199,7 @@ fun PrecipitationChanceBox(percipitationChance: Float) {
                 contentDescription = "Sunset"
             )
             Text(
+                modifier = Modifier.padding(start = 6.dp),
                 text = "$percipitationChance%"
             )
         }
