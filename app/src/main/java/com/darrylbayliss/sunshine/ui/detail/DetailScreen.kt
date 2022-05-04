@@ -43,7 +43,7 @@ fun WeatherDetail(selectedLocation: SelectedLocation?) {
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(all = 10.dp)
+                    .padding(top = 20.dp)
                     .size(200.dp, 200.dp),
                 painter = if (selectedLocation.temperature >= 15.0) {
                     painterResource(id = R.drawable.ic_weather_sun)
@@ -54,7 +54,9 @@ fun WeatherDetail(selectedLocation: SelectedLocation?) {
             )
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 40.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 CurrentTemperatureBox(selectedLocation.temperature)
@@ -67,7 +69,7 @@ fun WeatherDetail(selectedLocation: SelectedLocation?) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 20.0.dp),
+                    .padding(top = 40.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 SunsetSunriseTemperatureBox(
