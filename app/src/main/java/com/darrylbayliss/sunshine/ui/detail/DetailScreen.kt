@@ -4,11 +4,12 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.* // ktlint-disable no-wildcard-imports
+import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
@@ -50,7 +51,8 @@ fun WeatherDetail(selectedLocation: SelectedLocation?) {
                 } else {
                     painterResource(id = R.drawable.ic_weather_cold)
                 },
-                contentDescription = "Weather Detail Symbol"
+                contentDescription = "Weather Detail Symbol",
+                colorFilter = ColorFilter.tint(color = LocalContentColor.current)
             )
 
             Row(
@@ -93,7 +95,8 @@ fun FailureMessage() {
         Image(
             modifier = Modifier.fillMaxSize(0.5f),
             painter = painterResource(id = R.drawable.ic_weather_rain),
-            contentDescription = "No locations selected"
+            contentDescription = "No locations selected",
+            colorFilter = ColorFilter.tint(color = LocalContentColor.current)
         )
         Text(
             text = "Oops. We couldn't load the weather for this login."
@@ -107,7 +110,7 @@ fun CurrentTemperatureBox(temperature: Float) {
     Box(
         modifier = Modifier
             .size(width = 100.dp, height = 100.dp)
-            .border(BorderStroke(width = 2.0.dp, color = Color.Black)),
+            .border(BorderStroke(width = 2.0.dp, color = LocalContentColor.current)),
         contentAlignment = Alignment.Center
     ) {
         Text(fontSize = TextUnit(value = 24.0F, TextUnitType.Sp), text = "$temperature°c")
@@ -123,7 +126,7 @@ fun HighLowTemperatureBox(
     Box(
         modifier = Modifier
             .size(width = 100.dp, height = 100.dp)
-            .border(BorderStroke(width = 2.0.dp, color = Color.Black)),
+            .border(BorderStroke(width = 2.0.dp, color = LocalContentColor.current)),
         contentAlignment = Alignment.Center
     ) {
         Column {
@@ -148,7 +151,7 @@ fun SunsetSunriseTemperatureBox(
     Box(
         modifier = Modifier
             .size(width = 100.dp, height = 100.dp)
-            .border(BorderStroke(width = 2.0.dp, color = Color.Black)),
+            .border(BorderStroke(width = 2.0.dp, color = LocalContentColor.current)),
         contentAlignment = Alignment.Center
     ) {
 
@@ -159,7 +162,8 @@ fun SunsetSunriseTemperatureBox(
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_sunrise),
-                    contentDescription = "Sunrise"
+                    contentDescription = "Sunrise",
+                    colorFilter = ColorFilter.tint(color = LocalContentColor.current)
                 )
                 Text(
                     modifier = Modifier.padding(start = 4.dp),
@@ -173,7 +177,8 @@ fun SunsetSunriseTemperatureBox(
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_sunset),
-                    contentDescription = "Sunset"
+                    contentDescription = "Sunset",
+                    colorFilter = ColorFilter.tint(color = LocalContentColor.current)
                 )
                 Text(
                     modifier = Modifier.padding(start = 4.dp),
@@ -189,7 +194,7 @@ fun PrecipitationChanceBox(percipitationChance: Float) {
     Box(
         modifier = Modifier
             .size(width = 100.dp, height = 100.dp)
-            .border(BorderStroke(width = 2.0.dp, color = Color.Black)),
+            .border(BorderStroke(width = 2.0.dp, color = LocalContentColor.current)),
         contentAlignment = Alignment.Center
     ) {
         Row(
@@ -198,7 +203,8 @@ fun PrecipitationChanceBox(percipitationChance: Float) {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_weather_rain),
-                contentDescription = "Sunset"
+                contentDescription = "Sunset",
+                colorFilter = ColorFilter.tint(color = LocalContentColor.current)
             )
             Text(
                 modifier = Modifier.padding(start = 6.dp),
