@@ -24,6 +24,8 @@ fun Navigation(
         modifier = modifier
     ) {
         composable(SunshineScreen.Main().name) {
+
+            it.arguments?.putString(TITLE_BUNDLE_ARGUMENT, SunshineScreen.Main().name)
             MainScreen(
                 viewModel = hiltViewModel(),
                 onWeatherCardClicked = { selectedLocation ->
@@ -33,6 +35,8 @@ fun Navigation(
         }
 
         composable(SunshineScreen.Locations().name) {
+
+            it.arguments?.putString(TITLE_BUNDLE_ARGUMENT, SunshineScreen.Locations().name)
             LocationsScreen(
                 viewModel = hiltViewModel(),
                 onLocationClicked = {
@@ -45,6 +49,8 @@ fun Navigation(
             route = "${SunshineScreen.Detail().name}/{selectedLocationId}}",
             arguments = listOf(navArgument("selectedLocationId") { type = NavType.StringType })
         ) { entry ->
+
+            entry.arguments?.putString(TITLE_BUNDLE_ARGUMENT, SunshineScreen.Detail().name)
             val selectedLocationId = entry.arguments?.getString("selectedLocationId")
 
             if (selectedLocationId != null) {
@@ -70,3 +76,5 @@ fun navigateToLocationsScreen(navController: NavHostController) {
 fun navigateToDetailScreen(navController: NavHostController, id: String) {
     navController.navigate("${SunshineScreen.Detail().name}/$id}")
 }
+
+const val TITLE_BUNDLE_ARGUMENT = "title"
