@@ -13,7 +13,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -79,7 +78,7 @@ fun WeatherCard(
             .fillMaxWidth()
             .padding(horizontal = 10.dp)
             .padding(top = 10.dp)
-            .border(BorderStroke(width = 0.1.dp, color = Color.Gray))
+            .border(BorderStroke(width = 0.1.dp, color = LocalContentColor.current))
             .clickable { onWeatherCardClicked(weather) }
     ) {
         Column(
@@ -104,7 +103,8 @@ fun WeatherCard(
 
                 Image(
                     painter = painterResource(id = R.drawable.ic_sunrise),
-                    contentDescription = "Sunrise"
+                    contentDescription = "Sunrise",
+                    colorFilter = ColorFilter.tint(color = LocalContentColor.current)
                 )
                 Text(
                     text = weather.sunrise
