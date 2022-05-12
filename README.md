@@ -51,45 +51,72 @@ Create a ViewModel for the Main Screen, along with a repository and data source 
 
 You can make a request to this [URL](http://darrylbayliss.net/sunshine/weather.json) to get weather data into the app.
 
+Tip: You may end up with a number of dependencies, rather than remembering to create them. It could be useful to use a dependency injection library
+
+
 You may find these web pages useful:
 
 - [App Architecture](https://developer.android.com/topic/architecture)
 - [Coroutines in Android](https://developer.android.com/kotlin/coroutines)
 - [Retrofit](https://square.github.io/retrofit/)
 - [Ktor](https://ktor.io/)
+- [Koin](https://insert-koin.io/)
+- [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 
 # Step 4 - Create the Location Screen
 
-Adding the location screen will allow you to show the weather for specific locations.
+Adding the location screen will the app to show the weather for specific locations.
 
-Using the repository and data source you created in step 3, query the endpoint to get all locations and show them on the screen.
+Create the screen similar to the design in Miro. Create a ViewModel and use the repository and data source you created in step 3 to query the available locations within the ViewModel. 
 
-Show the locations in a list, allowing each one to be selected.
+Show the returned locations in a list.
 
-Selecting a location should cache the location id to the app and return to the main screen.
+Each location should be tappable. When tapped, cache the location id to the app via the repository and return to the main screen.
 
 You may find these web pages useful:
 
+- [Jetpack Compose Lists](https://developer.android.com/jetpack/compose/lists)
 - [Jetpack Datastore](https://developer.android.com/topic/libraries/architecture/datastore)
 
 # Step 5 - Hook the main screen and location screen together
 
 Now the main screen and location screen are built. It's time to allow navigation between the two.
 
-Add a way for navigation to occur between screens.
+Add a menu item on the main screen, allowing a user to navigate to the location screen. 
 
-You may find these web pages useful:
+You should also add a component that handles navigation across the app.
+
+You may find these web pages useful for this step:
 
 - [Jetpack Navigation](https://developer.android.com/guide/navigation)
 - [Navigation for Compose](https://developer.android.com/jetpack/compose/navigation)
 
 # Step 6 - Using the location id on the Main Screen
 
-Once the location id saved to the app, the id should be used to know what locations to show on the main screen.
+Once the location id is saved to the app, the id can be used to know what locations to show on the main screen.
 
 Update the business logic of the main screen, so it only shows locations for ids saved to the app.
 
-# Step 6 - Add a menu item to the Main Screen toolbar
+A filter operation could be useful here.
 
+# Step 7 - Navigating to the detail screen
 
+Add a click listener to each selected location on the main screen, so it can navigate to the detail screen.
 
+Next, create the foundation of the detail screen, then add it to the navigation component.
+
+You may need to pass the location id into the detail screen, so it knows which location to show.
+
+You may find this web page useful:
+
+- [Navigate with arguments](https://developer.android.com/jetpack/compose/navigation#nav-with-args)
+
+# Step 8 - Build up the detail screen
+
+Complete the detail screen by following the designs in miro.
+
+Make sure to follow best practice for architecture, by creating a ViewModel and querying data through its repositories.
+
+# Bonus Step - Switching the title on each screen
+
+The title on the screen stays static unless told otherwise. Add a way for this to be dynamic for each screen.
