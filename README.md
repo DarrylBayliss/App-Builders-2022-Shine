@@ -38,8 +38,8 @@ Using the [design](https://miro.com/app/board/uXjVO8Ww9Es=/?share_link_id=773086
 
 You may find these web pages useful:
 
-[Jetpack Compose Tutorial](https://developer.android.com/jetpack/compose/tutorial)
-[Modifiers](https://developer.android.com/jetpack/compose/modifiers)
+- [Jetpack Compose Tutorial](https://developer.android.com/jetpack/compose/tutorial)
+- [Modifiers](https://developer.android.com/jetpack/compose/modifiers)
 
 # Step 3 - Building up the domain / data layer
 
@@ -53,10 +53,10 @@ You can make a request to this [URL](http://darrylbayliss.net/sunshine/weather.j
 
 You may find these web pages useful:
 
-[App Architecture](https://developer.android.com/topic/architecture)
-[Coroutines in Android](https://developer.android.com/kotlin/coroutines)
-[Retrofit](https://square.github.io/retrofit/)
-[Ktor](https://ktor.io/)
+- [App Architecture](https://developer.android.com/topic/architecture)
+- [Coroutines in Android](https://developer.android.com/kotlin/coroutines)
+- [Retrofit](https://square.github.io/retrofit/)
+- [Ktor](https://ktor.io/)
 
 # Step 4 - Create the Location Screen
 
@@ -70,7 +70,7 @@ Selecting a location should cache the location id to the app and return to the m
 
 You may find these web pages useful:
 
-[Jetpack Datastore](https://developer.android.com/topic/libraries/architecture/datastore)
+- [Jetpack Datastore](https://developer.android.com/topic/libraries/architecture/datastore)
 
 # Step 5 - Hook the main screen and location screen together
 
@@ -80,8 +80,8 @@ Add a way for navigation to occur between screens.
 
 You may find these web pages useful:
 
-[Jetpack Navigation](https://developer.android.com/guide/navigation)
-[Navigation for Compose](https://developer.android.com/jetpack/compose/navigation)
+- [Jetpack Navigation](https://developer.android.com/guide/navigation)
+- [Navigation for Compose](https://developer.android.com/jetpack/compose/navigation)
 
 # Step 6 - Using the location id on the Main Screen
 
