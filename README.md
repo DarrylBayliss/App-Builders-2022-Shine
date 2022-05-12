@@ -115,7 +115,7 @@ You may find this web page useful:
 
 Complete the detail screen by following the designs in miro.
 
-Make sure to follow best practice for architecture, by creating a ViewModel and querying data through its repositories.
+Make sure to follow best practices for architecture, by creating a ViewModel and querying data through its repositories / datasources.
 
 # Bonus Step - Switching the title on each screen
 
