@@ -127,6 +127,8 @@ Now that Shine is built and functional, it's time to add some theming to it.
 
 Update the default compose theme to ensure it provides the colours in the [design](https://miro.com/app/board/uXjVO8Ww9Es=/?share_link_id=773086494141).
 
+*Hint:* The colours for the theme are available [here](https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=fff600&secondary.color=FAFAFA)
+
 You may find this web page useful:
 
 - [Material Theming in Compose](https://developer.android.com/jetpack/compose/themes/material)
