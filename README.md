@@ -4,6 +4,8 @@ This app is the sample project used for the Modern Android Techniques workshop
 at App Builders 2022. It is a weather app called Shine, built using the latest Android
 technologies.
 
+<img width="290" alt="Screenshot 2022-05-16 at 08 23 02" src="https://user-images.githubusercontent.com/1524343/168616785-725567e5-1268-4ef3-acba-eeed316265f6.png">
+
 # Your Mission
 
 You are a newly hired Android Engineer, starting out at Sunshine Inc. A new startup
@@ -13,6 +15,8 @@ You've been tasked with building the 1st iteration of Shine, the Android app for
 As a cutting edge engineer, you'd like to build the app using the latest technologies.
 
 The product designers at Sunshine have provided the following [design](https://miro.com/app/board/uXjVO8Ww9Es=/?share_link_id=773086494141)
+
+The backend engineers have provided a test endpoint, providing the following [response](http://darrylbayliss.net/sunshine/weather.json).
 
 The **main screen** shows the weather at locations a user has selected. Tapping on a location opens a detail screen, showing detailed weather information about the location.
 The screen also has a menu item in the toolbar, tapping it opens the **detail screen**.  
