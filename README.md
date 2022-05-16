@@ -16,6 +16,8 @@ As a cutting edge engineer, you'd like to build the app using the latest technol
 
 The product designers at Sunshine have provided the following [design](https://miro.com/app/board/uXjVO8Ww9Es=/?share_link_id=773086494141)
 
+They also provide [icons](http://darrylbayliss.net/sunshine/drawables.zip) to use in the app.
+
 The backend engineers have provided a test endpoint, providing the following [response](http://darrylbayliss.net/sunshine/weather.json).
 
 The **main screen** shows the weather at locations a user has selected. Tapping on a location opens a detail screen, showing detailed weather information about the location.
