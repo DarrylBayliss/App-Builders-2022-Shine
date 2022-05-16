@@ -121,6 +121,16 @@ Complete the detail screen by following the designs in miro.
 
 Make sure to follow best practices for architecture, by creating a ViewModel and querying data through its repositories / datasources.
 
+# Step 9 - Theming the App
+
+Now that Shine is built and functional, it's time to add some theming to it.
+
+Update the default compose theme to ensure it provides the colours in the [design](https://miro.com/app/board/uXjVO8Ww9Es=/?share_link_id=773086494141).
+
+You may find this web page useful:
+
+- [Material Theming in Compose](https://developer.android.com/jetpack/compose/themes/material)
+
 # Bonus Step - Switching the title on each screen
 
 The title on the screen stays static unless told otherwise. Add a way for this to be dynamic for each screen.
